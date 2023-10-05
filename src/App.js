@@ -10,14 +10,10 @@ function App() {
   const [data , setData] = useState([]);
 
 
+
   useEffect(() => {
-    axios.get('http://localhost:8080/api/v1/member').then((res)=>{
-      console.log(res.data)
-      setData(res.data);
-    }).catch((err) => console.log(err))
-
+    getData();
   }, [])
-
 
 
   const nameHandler = (e) => {
@@ -35,7 +31,16 @@ function App() {
     })
         .then((response) => {
           alert("제출완료")
+          getData();
         })
+
+  }
+
+  function getData() {
+    axios.get('http://localhost:8080/api/v1/member').then((res)=>{
+      console.log(res.data)
+      setData(res.data);
+    }).catch((err) => console.log(err))
 
   }
 
@@ -49,7 +54,12 @@ function App() {
         <button onClick={saveMember}>submit</button>
 
         <div>
-          {/*{data.map((item,idx) => )}*/}
+          {data.map((item,idx) => (
+              <div key={idx}>
+              <p>{item.name}</p>
+              <p>{item.description}</p>
+              </div>
+          ))}
 
         </div>
         <a
