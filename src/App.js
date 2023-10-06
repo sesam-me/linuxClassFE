@@ -31,7 +31,7 @@ function App() {
 
 
   const saveMember = () => {
-    axios.post(process.env.NODE_ENV === 'develpment' ? 'http://localhost:8080' : 'http://10.128.0.4:8080', {
+    axios.post(process.env.NODE_ENV === 'develpment' ? 'http://localhost:8080' : 'http://35.226.134.231:8080', {
       name : name,
       description : description
     })
@@ -43,7 +43,7 @@ function App() {
   }
 
   function getData() {
-    axios.get(process.env.NODE_ENV === 'develpment' ? 'http://localhost:8080' : 'http://10.128.0.4:8080').then((res)=>{
+    axios.get(process.env.NODE_ENV === 'develpment' ? 'http://localhost:8080' : 'http://135.226.134.231:8080').then((res)=>{
       console.log(res.data)
       setData(res.data);
     }).catch((err) => console.log(err))
