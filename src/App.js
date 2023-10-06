@@ -3,18 +3,18 @@ import './App.css';
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+// dev면 local ,   prod면 현재주소
+axios.defaults.baseURL = process.env.NODE_ENV !== 'development' && 'http://localhost:8001';
+
 function App() {
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [error , setError] = useState('');
   const [data , setData] = useState([]);
 
-
-
   useEffect(() => {
     getData();
   }, [])
-
 
   const nameHandler = (e) => {
     setName(e.target.value);
@@ -23,15 +23,8 @@ function App() {
     setDescription(e.target.value);
   }
 
-
-
-
-
-
-
-
   const saveMember = () => {
-    axios.post(process.env.NODE_ENV === 'develpment' ? 'http://localhost:8080' : 'http://35.226.134.231:8080', {
+    axios.post('/api/v1/demo', {
       name : name,
       description : description
     })
@@ -43,7 +36,7 @@ function App() {
   }
 
   function getData() {
-    axios.get(process.env.NODE_ENV === 'develpment' ? 'http://localhost:8080' : 'http://135.226.134.231:8080').then((res)=>{
+    axios.get('/api/v1/demo').then((res)=>{
       console.log(res.data)
       setData(res.data);
     }).catch((err) => console.log(err))
@@ -58,7 +51,6 @@ function App() {
         <input onChange={nameHandler}/>
         <input onChange={descriptionHandler}/>
         <button onClick={saveMember}>submit</button>
-
         <div>
           {data.map((item,idx) => (
               <div key={idx}>
