@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 // dev면 local ,   prod면 현재주소
-axios.defaults.baseURL = process.env.NODE_ENV !== 'development' && 'http://localhost:8001';
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' && 'http://localhost:8001';
 
 function App() {
   const [name, setName] = useState(null);
